@@ -47,17 +47,12 @@ class World {
         if (mo.otherDirection) {
             this.flippImg(mo);
         }
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height)
-        this.ctx.beginPath();
-        this.ctx.lineWidth = '5';
-        this.ctx.strokeStyle = 'blue';
-        this.ctx.rect(mo.x, mo.y, mo.x + mo.width, mo.y + mo.height);
-        this.ctx.stroke();
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
 
 
         if (mo.otherDirection) {
-            mo.x = mo.x * -1;
-            this.ctx.restore();
+            this.flippImgBack(mo)
         }
     }
 
@@ -66,6 +61,11 @@ class World {
         this.ctx.translate(mo.width, 0);
         this.ctx.scale (-1, 1);
         mo.x = mo.x * -1;
+    }
+
+    flippImgBack(mo){
+        mo.x = mo.x * -1;
+        this.ctx.restore();
     }
 
 }
