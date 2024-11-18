@@ -11,6 +11,7 @@ class MovableObject{
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    lastHit = 0;
 
 
 
@@ -18,7 +19,7 @@ class MovableObject{
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
     drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
@@ -34,6 +35,26 @@ class MovableObject{
         this.x < mo.x &&
         this.y < mo.y + mo.height;
     }
+
+    getHit(){
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt(){
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
+    }
+
+    isDead(){
+        return this.energy == 0;
+    }
+
     applyGravity(){
         setInterval(() => {
             if (this.isAboveTheGround() || this.speedY > 0){
