@@ -50,6 +50,7 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump_hu.mp3');
+    hurt_sound = new Audio('audio/getting_hurt.mp3');
     constructor(){
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_IDLE);
@@ -81,6 +82,7 @@ class Character extends MovableObject {
                 this.jump();
                 this.jump_sound.play();
             }
+
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
 
